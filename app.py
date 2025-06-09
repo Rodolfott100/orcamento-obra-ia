@@ -90,13 +90,10 @@ with st.form("formulario_orcamento"):
     tipo_revestimento = st.selectbox("Tipo de Revestimento predominante nas paredes", ["Reboco", "Gesso", "Outro"])
     tipo_telhado = st.selectbox("Tipo de Telhado", ["Telhado colonial", "Telhado embutido", "Laje impermeabilizada"])
     sistema_construtivo = st.selectbox("Sistema Construtivo", ["Alvenaria Convencional", "Alvenaria Estrutural", "Steel Frame", "WoodFrame", "Pré-moldado"])
-    vagas_garagem = st.number_input("Quantidade de vagas de garagem", min_value=0, step=1)
-    tipo_esquadria = st.selectbox("Tipo de Esquadria", ["Madeira", "PVC", "Alumínio", "Outro"])
     terraplanagem = st.checkbox("Haverá terraplanagem?")
     fundacao_profunda = st.checkbox("Fundação profunda (estacas, tubulão)?")
     muro_arrimo = st.checkbox("Haverá muro de arrimo?")
     local = st.text_input("Local da Obra (Cidade/UF)")
-    custo_manual = st.number_input("Deseja informar um custo por m² personalizado? (opcional)", min_value=0.0, step=10.0, format="%.2f")
     submitted = st.form_submit_button("Calcular Orçamento")
 
 # Cálculo do orçamento
@@ -123,7 +120,7 @@ if submitted:
         (15 if muro_arrimo else 0)
     )
 
-    custo_m2 = custo_manual if custo_manual > 0 else custo_base_m2 + adicional
+    custo_m2 = custo_base_m2 + adicional
     custo_total = custo_m2 * area
 
     if custo_m2 < 500:
@@ -140,8 +137,6 @@ if submitted:
     st.write(f"**Tipo de Revestimento:** {tipo_revestimento}")
     st.write(f"**Tipo de Telhado:** {tipo_telhado}")
     st.write(f"**Sistema Construtivo:** {sistema_construtivo}")
-    st.write(f"**Quantidade de Vagas de Garagem:** {vagas_garagem}")
-    st.write(f"**Tipo de Esquadria:** {tipo_esquadria}")
     st.write(f"**Terraplanagem:** {'Sim' if terraplanagem else 'Não'}")
     st.write(f"**Fundação Profunda:** {'Sim' if fundacao_profunda else 'Não'}")
     st.write(f"**Muro de Arrimo:** {'Sim' if muro_arrimo else 'Não'}")
