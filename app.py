@@ -144,6 +144,15 @@ if submitted:
     st.write(f"**Custo Total Estimado:** R$ {custo_total:,.2f}")
 
     st.subheader("Distribuição por Etapas")
+    descricoes_etapas = {
+        "Fundação": "Escavações, formas, armações, concretagem e impermeabilizações iniciais.",
+        "Estrutura": "Pilares, vigas, lajes e estrutura de sustentação.",
+        "Alvenaria": "Paredes internas e externas, blocos ou tijolos, revestimento básico.",
+        "Cobertura": "Telhado, calhas, rufos e estrutura de cobertura.",
+        "Instalações": "Parte elétrica, hidráulica, esgoto, e preparo para climatização.",
+        "Acabamentos": "Pisos, revestimentos, pintura, louças, metais e esquadrias."
+    }
     for etapa, percentual in etapas.items():
         valor = custo_total * percentual
-        st.write(f"{etapa}: R$ {valor:,.2f} ({percentual*100:.0f}%)")
+        descricao = descricoes_etapas.get(etapa, "")
+        st.markdown(f"**{etapa} ({percentual*100:.0f}%):** R$ {valor:,.2f}  \n_{descricao}_")
